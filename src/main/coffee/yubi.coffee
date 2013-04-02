@@ -106,3 +106,4 @@ class Verifier
     params = getRequestParams @apiId, @apiKey, otp
     verify Verifier.HOSTS, Verifier.PATH, @timeoutMs, params, @apiKey, done
 
+module.exports = Verifier
