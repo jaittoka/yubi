@@ -1,0 +1,17 @@
+{
+  "name": "yubi",
+  "version": "0.1.0",
+  "description": "Yubikey validation client",
+  "author": "Jukka Aittokallio <jukka@aittokallio.com>",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jaittoka/yubi.git"
+  },  
+  "licence": "MIT",
+  "main": "lib/yubi",
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-coffee": "~0.6.4"
+  }
+}
