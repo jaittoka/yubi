@@ -3,6 +3,17 @@ yubi
 
 Yubikey client for node.js
 
+Uses Yubico's validation servers to do the actual validation. It sends a validation
+request in parallel to all five validation servers:
+
+```
+api.yubico.com
+api2.yubico.com
+api3.yubico.com
+api4.yubico.com
+api5.yubico.com
+```
+
 install
 =======
 
