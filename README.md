@@ -38,3 +38,8 @@ v.verify otp, (status) ->
   else
     console.log v.errorMsg(status)
 ```
+
+example
+=======
+There is an example console application (`examples/console.coffee`) that waits for user input (OTP). When it gets
+OTP from the console, it validates it. 
