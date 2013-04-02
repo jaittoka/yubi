@@ -84,16 +84,17 @@ class Verifier
   ]
   @PATH = 'wsapi/2.0/verify'
   @ERRORS =
-    'OK': 'Validation successful'
-    'REPLAYED_OTP': 'The OTP has already been used.',
-    'REPLAYED_REQUEST': 'Server has seen the OTP/Nonce combination before.',
-    'BAD_SIGNATURE': 'The request signature failed verification.',
-    'MISSING_PARAMETER': 'The request lacks a parameter.',
-    'NO_SUCH_CLIENT': 'The request id does not exist.',
-    'OPERATION_NOT_ALLOWED': 'The request id is not allowed to verify OTPs.',
-    'BACKEND_ERROR': 'Unexpected error in Yubico server.',
-    'NOT_ENOUGH_ANSWERS': 'Server could not get requested number of syncs during before timeout.'
-    'BAD_SERVER_SIGNATURE': 'Server responded with invalid signature'
+    'OK': 'The OTP is valid.'
+    'BAD_OTP': 'The OTP has invalid format.'
+    'REPLAYED_OTP': 'The OTP has already been seen by the validation service.'
+    'BAD_SIGNATURE': 'The HMAC signature verification failed.'
+    'MISSING_PARAMETER': 'Validation request lacks a parameter.'
+    'NO_SUCH_CLIENT': 'Client id does not exist.'
+    'OPERATION_NOT_ALLOWED': 'The request id is not allowed to verify OTPs.'
+    'BACKEND_ERROR': '  Unexpected error in validation server.'
+    'NOT_ENOUGH_ANSWERS': 'Validation server could not get requested number of syncs during before timeout.'
+    'REPLAYED_REQUEST': 'Validation server has seen the OTP/Nonce combination before'
+    'BAD_SERVER_SIGNATURE': 'Validation server responded with invalid signature'
     'TIMEOUT': 'Validation server took too long to respond'
     'NETWORK_ERROR': 'Network communication failed'
     'HTTP_ERROR': 'Server sent HTTP error code'
@@ -107,3 +108,4 @@ class Verifier
     verify Verifier.HOSTS, Verifier.PATH, @timeoutMs, params, @apiKey, done
 
 module.exports = Verifier
+
