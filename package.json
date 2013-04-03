@@ -3,6 +3,7 @@
   "version": "0.1.1",
   "description": "Yubikey validation client",
   "author": "Jukka Aittokallio <jukka@aittokallio.com>",
+  "keywords": "Yubico Yubikey OTP USB token two factor authentication",
   "repository": {
     "type": "git",
     "url": "git://github.com/jaittoka/yubi.git"
