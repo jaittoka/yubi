@@ -1,5 +1,6 @@
 crypto = require 'crypto'
 http = require 'http'
+https = require 'https'
 qs = require 'querystring'
 
 getStringToBeSigned = (params) ->
@@ -37,14 +38,15 @@ handleResponse = (body, key) ->
   else
     params.status
 
-request = (url, done) ->
+request = (url, useHttps, done) ->
   body = []
-  req = http.get url, (res) ->
+  get = if useHttps then https.get else http.get
+  req = get url, (res) ->
     res.on 'data', (chunk) -> body.push chunk
     res.on 'end', () -> done null, res, body.join('')
   req.on 'error', (e) -> done e
 
-verify = (hosts, path, timeoutMs, params, key, done) ->
+verify = (hosts, path, useHttps, timeoutMs, params, key, done) ->
   count = 0
   callbackCalled = false
   err = null
@@ -59,9 +61,11 @@ verify = (hosts, path, timeoutMs, params, key, done) ->
       callbackCalled = true
       done err
 
+  scheme = if useHttps then 'https' else 'http'
+
   for host in hosts
-    url = "http://#{host}/#{path}?#{qs.stringify(params)}"
-    request url, (error, response, body) ->
+    url = "#{scheme}://#{host}/#{path}?#{qs.stringify(params)}"
+    request url, useHttps, (error, response, body) ->
       count++
       if error
         err = 'NETWORK_ERROR'
@@ -99,13 +103,13 @@ class Verifier
     'NETWORK_ERROR': 'Network communication failed'
     'HTTP_ERROR': 'Server sent HTTP error code'
 
-  constructor: (@apiId, @apiKey, @timeoutMs = 7000) ->
+  constructor: (@apiId, @apiKey, @useHttps = true, @timeoutMs = 10000) ->
 
   errorMsg: (err) -> Verifier.ERRORS[err] or 'Unknown error'
 
   verify: (otp, done) ->
     params = getRequestParams @apiId, @apiKey, otp
-    verify Verifier.HOSTS, Verifier.PATH, @timeoutMs, params, @apiKey, done
+    verify Verifier.HOSTS, Verifier.PATH, @useHttps, @timeoutMs, params, @apiKey, done
 
 module.exports = Verifier
 
