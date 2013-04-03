@@ -1,6 +1,6 @@
 {
   "name": "yubi",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Yubikey validation client",
   "author": "Jukka Aittokallio <jukka@aittokallio.com>",
   "keywords": "Yubico Yubikey OTP USB token two factor authentication",
